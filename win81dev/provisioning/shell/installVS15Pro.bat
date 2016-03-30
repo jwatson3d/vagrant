@@ -1,0 +1,1 @@
+start /wait C:/iso/vs2015pro_upd1/vs_professional.exe /adminfile C:/vagrant/provisioning/installers/VS15ProAdminDeploy.xml /quiet /norestart /Log C:/Users/vagrant/AppData/Local/Temp/vs2015_install.log

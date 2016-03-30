@@ -1,5 +1,14 @@
-# Cache objects
-packer_cache/
+# OS-specific
+.DS_Store
 
-# For built boxes
-*.box
+# IDE junk
+.idea/*
+*.iml
+.project
+
+
+# Vagrant stuff
+.vagrant/
+acceptance_config.yml
+boxes/*
+win81dev/.vagrant/

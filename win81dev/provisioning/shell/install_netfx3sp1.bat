@@ -1,0 +1,1 @@
+start /wait C:/iso/dotnetfx35sp1.exe

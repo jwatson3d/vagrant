@@ -1,0 +1,1 @@
+start /wait C:/iso/SQL2014_x64_ENU/setup.exe /CONFIGURATIONFILE=C:/vagrant/provisioning/installers/sql14dev.ini /Q /IACCEPTSQLSERVERLICENSETERMS
