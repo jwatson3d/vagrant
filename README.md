@@ -31,6 +31,7 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 | script | notes |
 | ----   | ----- |
 | [win81dev](win81dev/README.md) | Windows 8.1 VS 2015 & SQL 2014 |
+| [win81sql](win81sql/README.md) | Windows 8.1 SQL 2014 Developer Edition |
 
 
 # Notes

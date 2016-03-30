@@ -1,0 +1,5 @@
+---
+box_name: "win81sql"
+host_name: "default"
+iso_mount: "D:/iso"
+#iso_mount: "/Volumes/USB/ISOs"
