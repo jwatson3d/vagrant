@@ -46,28 +46,6 @@ The following software requires that you provide an unpacked ISO image to instal
 
 # Known Issues / Workarounds
 
-Vagrant seems to hang during initial boot.
-
-> Symptom is the Vagrant console stops at this point:
-> ![winrm_hang](../_images/vagrant-winrm-hangs.png "WinRM hangs")
->
-```
-==> default: Waiting for machine to boot. This may take a few minutes...
-    default: WinRM address: 127.0.0.1:55985
-    default: WinRM username: vagrant
-    default: WinRM execution_time_limit: PT2H
-    default: WinRM transport: plaintext
-```
->
-> Problem is Vagrant automatically connects to the guest VM to provision it. Unfortunately, when bringing up a Windows guest OS the first time Windows won't recognize the network it is connected to so it defaults to a *public network* which causes the built-in Windows firewall to close all ports thus preventing communication coming in from the outside.
->
-> Enable the hypervisor console by editing the `Vagrantfile` setting `vb.gui = true`
-> Reload the virtual machine using `vagrant reload` and log onto the hypervisor console when it comes up (user `vagrant`, password `vagrant`)
-> Choose yes to scan the network on the blue settings bar that appears on the right side of the virtual machine window. This has the effect of making the network private which will then allow vagrant to connect via WinRM and the provisioning will continue.
-> ![win_network_detected](../_images/vagrant-winrm-window-guest-network-detected.png "Windows Network Detected")
->
-> NOTE: After provisioning is successful you may edit the `Vagrantfile` setting `vb.gui = false` and use `vagrant rdp` to connect to the virtual machine guest.
-
 Vagrant fails during initial startup with the following error
 ![console](_images/vagrant_up_after_disk_fixup.png "Virtual Box Console")
 
