@@ -1,0 +1,71 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'yaml'
+overrides = YAML.load_file 'vagrant.yml'
+BOX_NAME = overrides['box_name']
+HOST_NAME = overrides['host_name']
+ISO_MOUNT = overrides['iso_mount']
+
+Vagrant.require_version ">= 1.8.0"
+VAGRANTFILE_API_VERSION = "2"
+
+BASE_BOX = "win10x64ent"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = BASE_BOX
+  config.vm.hostname = HOST_NAME
+  config.vm.guest = :windows
+  #config.vm.communicator = "winrm"
+  config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
+  config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
+  #config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+  config.vm.synced_folder "#{ISO_MOUNT}", "/iso"
+
+  config.windows.halt_timeout = 15
+
+  config.winrm.username = "vagrant"
+  config.winrm.password = "vagrant"
+
+
+  # customize VirtualBox defaults
+  config.vm.provider "virtualbox" do |vb|
+    # use 2 v-cpus
+    vb.cpus = 2
+
+    # true = display hypervisor console window, false = don't display
+    vb.gui = true
+
+    # OS + Visual Studio + SQL is a memory hog!
+    vb.memory = 3096
+
+    # rename the box to a friendly name
+    if BOX_NAME != 'default'
+      vb.name = BOX_NAME
+    end
+
+    # increase video ram to min 32 Mb
+    vb.customize ["modifyvm", :id, "--vram", "32"]
+  end
+
+
+  # un-provision Metro UI apps
+  config.vm.provision :shell, path: "provisioning/shell/RemoveApps.ps1"
+
+  # provision Chocolatey and tools
+  config.vm.provision :shell, path: "provisioning/shell/chocolatey.ps1"
+  config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installTools.bat"
+
+  # install SQL 2014 (requires .NET 3.5 SP1)
+  #config.vm.provision :shell, path: "provisioning/shell/install_netfx3.ps1"
+  #config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/install_netfx3sp1.bat"
+  #config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installSQL2014.bat"
+
+  # install VS 2015
+  #config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installVS15Pro.bat"
+
+  # cleanup
+  config.vm.provision :shell, path: "provisioning/shell/pinShortcuts.ps1"
+  config.vm.provision :shell, path: "provisioning/shell/enableUAC.ps1"
+  config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/enableFirewall.bat"
+
+end

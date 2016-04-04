@@ -6,7 +6,7 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 
 1. You must have virtualization software installed on your machine. Currently only [Virtual Box](https://www.vagrantup.com/docs/virtualbox/) providers have been coded and tested but [VMware](https://www.vagrantup.com/docs/vmware/) Workstation and Fusion, [Parallels](http://parallels.github.io/vagrant-parallels/docs/), and [Hyper-V](https://www.vagrantup.com/docs/vmware/) providers are also possible (pull requests appreciated if you update & test).
 1. You must have [Vagrant](https://www.vagrantup.com/downloads.html) installed.
-1. You might need [Cygwin](https://www.cygwin.com/) installed (necessary for Vagrant running on Windows).
+1. You might need [Cygwin](https://www.cygwin.com/) or [git for Windows](https://git-for-windows.github.io/) installed - necessary as Vagrant uses bash for some of its work.
 1. Provisioning scripts expect a collection of installer images that are unpacked and mounted in a common location such as on a shared network folder or an attached external hard drive (USB, Thunderbolt, etc.).
 
 
@@ -30,8 +30,9 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 
 | script | notes |
 | ----   | ----- |
-| [win81dev](win81dev/README.md) | Windows 8.1 VS 2015 & SQL 2014 |
-| [win81sql](win81sql/README.md) | Windows 8.1 SQL 2014 Developer Edition |
+| [win81dev](win81dev/README.md) | Windows 8.1 Ent. VS 2015 & SQL 2014 |
+| [win81sql](win81sql/README.md) | Windows 8.1 Ent. SQL 2014 Developer Edition |
+| [win10dev](win10dev/README.md) | Windows 10 Ent. (1511) VS 2015 & SQL 2014 |
 
 
 # Notes
