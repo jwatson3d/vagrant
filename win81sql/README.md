@@ -47,7 +47,7 @@ The following software requires that you provide an unpacked ISO image to instal
 # Known Issues / Workarounds
 
 Vagrant fails during initial startup with the following error
-![console](_images/vagrant_up_after_disk_fixup.png "Virtual Box Console")
+![console](../_images/vagrant_up_after_disk_fixup.png "Virtual Box Console")
 
 > You specified `box_name: "somename"` in `vagrant.yml` instead of `default`. Vagrant with Virtual Box supports the ability to rename the default, auto-generated virtual machine name that is covered well in this [StackOverflow post](http://stackoverflow.com/a/20431791/4185948). We use this feature in a manner similar to this...
 >
