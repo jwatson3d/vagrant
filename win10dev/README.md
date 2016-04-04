@@ -1,6 +1,6 @@
 # Overview
 
-This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spinning up and automatically provisioning a Windows 8.1 development virtual machine. The heart of these scripts is the [Vagrantfile](https://www.vagrantup.com/docs/vagrantfile/) that contains instructions for the hypervisor defaults for the new instance as well as provisioning steps that are applied automatically when creating a new instance from an image.
+This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spinning up and automatically provisioning a Windows 10 development virtual machine. The heart of these scripts is the [Vagrantfile](https://www.vagrantup.com/docs/vagrantfile/) that contains instructions for the hypervisor defaults for the new instance as well as provisioning steps that are applied automatically when creating a new instance from an image.
 
 # Prerequisites
 
@@ -9,7 +9,7 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 1. You might need [Cygwin](https://www.cygwin.com/) or [git for Windows](https://git-for-windows.github.io/) installed - necessary as Vagrant uses bash for some of its work.
 1. Provisioning scripts expect SQL 2014 and VS 2015 unpacked ISO images to be available. These could be converted to variables or otherwise improved upon:
     1. `provisioning\shell\installSQL2014.bat` refers to *SQL2014_x64_ENU* for a folder name - either name your unpacked folder this or change the script
-    1. `provisioning\shell\installVS15Pro.bat` refers to *vs2015pro_upd1* for a folder name - either name your unpacked folder this or change the script
+    1. `provisioning\shell\installVS15Pro.bat` refers to *vs2015pro_upd2* for a folder name - either name your unpacked folder this or change the script
 
 > NOTE: Typically, a collection of installer images are unpacked and mounted in a common location such as on a shared network folder or an attached external hard drive (USB, Thunderbolt, etc.).
 
@@ -19,7 +19,7 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 1. Clone this repo to a local folder on your computer.
 1. Open a command prompt and navigate to the folder containing this file.
 1. Specify value for *iso_mount* (e.g. `iso_mount: "D:/iso"`, `iso_mount: "/Volumes/iso"`, etc.) where installers are located:
-    1. Global: you can edit/create `%HOME%\\.vagrant.d\Vagrantfile` to specify a default value for all Vagrant scripts.
+    1. Global: you can edit/create `%HOME%\.vagrant.d\Vagrantfile` or `~/.vagrant.d/Vagrantfile` to specify a default value for all Vagrant scripts.
     1. Scoped for just this script: edit `vagrant.yml` in this folder to specify value for just this Vagrant script.
 1. Run `vagrant up`. Optionally you may specify your virtualization provider if not using the defult (virtualbox) `--provider vmware|fusion|hyperv`.
     * The first time you run `vagrant up` the provisioning phase will occur and will likely take a couple of hours (sorry, it's Windoze...not me!).
@@ -32,7 +32,7 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 
 # Software Provisioning
 
-The base operating system is **Windows 8.1 Enterprise x64** which includes **PowerShell 4**. It is licensed as 'Trial Edition' so you have 90 days grace period to supply your own MSDN developer license for activation (or destroy the machine and re-provision a new image).
+The base operating system is **Windows 10 Enterprise x64** (Build 10240, RTM). It is licensed as 'Trial Edition' so you have 90 days grace period to supply your own MSDN developer license for permanent activation (or destroy the machine and re-provision a new image).
 
 The following software will be installed automatically during provisioning phase (intial startup):
 
@@ -46,13 +46,13 @@ The following software will be installed automatically during provisioning phase
 
 The following software requires that you provide an unpacked ISO image to install from [see `vagrant.yml` `iso_mount` setting ]:
 
-1. Visual Studio 2015 Professional with Update 1
+1. Visual Studio 2015 Professional with Update 2
 1. SQL Server 2014 Developer Edition
 
 # Known Issues / Workarounds
 
 Start screen shows Modern Apps that appear to be missing or not working.
-![metro_apps](_images/metro_apps.png "Modern Apps missing")
+![metro_apps](../_images/metro_apps.png "Modern Apps missing")
 
 The provisioning step removes all the pre-installed-but-unnecessary-unwanted Modern Apps (Bing, Money, Weather, Skype, Zune media) but the Start panel tiles do not appear to be cleaned up. Several articles on the Internet seem to indicate that the new Tiles system involves a database of sorts which is locked when you log in, perhaps this is partly to blame? You can safely right-click and choose Uninstall or Unpin from Start as appropriate.
 
