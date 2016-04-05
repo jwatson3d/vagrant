@@ -51,14 +51,14 @@ The following software requires that you provide an unpacked ISO image to instal
 
 # Known Issues / Workarounds
 
-Start screen shows Modern Apps that appear to be missing or not working.
-![metro_apps](../_images/metro_apps.png "Modern Apps missing")
+Start screen shows Modern Apps that appear to be missing or not working:
+> ![metro_apps](../_images/metro_apps.png "Modern Apps missing")
+>
+> The provisioning step removes all the pre-installed-but-unnecessary-unwanted Modern Apps (Bing, Money, Weather, Skype, Zune media) but the Start panel tiles do not appear to be cleaned up. Several articles on the Internet seem to indicate that the new Tiles system involves a database of sorts which is locked when you log in, perhaps this is partly to blame? You can safely right-click and choose Uninstall or Unpin from Start as appropriate to clean up these orphaned links.
 
-The provisioning step removes all the pre-installed-but-unnecessary-unwanted Modern Apps (Bing, Money, Weather, Skype, Zune media) but the Start panel tiles do not appear to be cleaned up. Several articles on the Internet seem to indicate that the new Tiles system involves a database of sorts which is locked when you log in, perhaps this is partly to blame? You can safely right-click and choose Uninstall or Unpin from Start as appropriate.
 
-
-Vagrant fails during initial startup with the following error
-![console](../_images/vagrant_up_after_disk_fixup.png "Virtual Box Console")
+Vagrant fails during initial startup with the following error:
+> ![console](../_images/vagrant_up_after_disk_fixup.png "Virtual Box Console")
 
 > You specified `box_name: "somename"` in `vagrant.yml` instead of `default`. Vagrant with Virtual Box supports the ability to rename the default, auto-generated virtual machine name that is covered well in this [StackOverflow post](http://stackoverflow.com/a/20431791/4185948). We use this feature in a manner similar to this...
 >
