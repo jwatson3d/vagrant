@@ -30,6 +30,7 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 
 | script | notes |
 | ----   | ----- |
+| [cent67php](cent67php/README.md) | CentOS 6.7 PHP development server |
 | [win81dev](win81dev/README.md) | Windows 8.1 Ent. VS 2015 & SQL 2014 |
 | [win81sql](win81sql/README.md) | Windows 8.1 Ent. SQL 2014 Developer Edition |
 | [win10dev](win10dev/README.md) | Windows 10 Ent. (1511) VS 2015 & SQL 2014 |
