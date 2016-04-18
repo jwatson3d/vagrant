@@ -49,3 +49,9 @@ The philosophy here is to use Vagrant to quickly bootstrap a machine then do all
 1. Base boxes ideally should come from a [packer-](https://www.packer.io/) based script rather than pre-built images from an external Internet site.
    1. You have no control over what external images contain or if they have been tampered with.
    1. Scripted base boxes can be standard, hardened images built by you on your network from known operating system ISO images.
+
+# Known Problems
+
+1. Vagrant and Virtual Box on Windows does not completely rename the virtual machine to the name specified in the `Vagrantfile`.
+   1. The virtual machine will fail to start and you'll be left with multiple lines of red error messages in the console window.
+   1. Follow the one-time instructions in the [Windows](Windows.md) notes to manually complete the rename process and resume.

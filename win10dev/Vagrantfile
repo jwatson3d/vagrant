@@ -56,9 +56,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installTools.bat"
 
   # install SQL 2014 (requires .NET 3.5 SP1)
-  #config.vm.provision :shell, path: "provisioning/shell/install_netfx3.ps1"
-  #config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/install_netfx3sp1.bat"
-  #config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installSQL2014.bat"
+  config.vm.provision :shell, path: "provisioning/shell/install_netfx3.ps1"
+  config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/install_netfx3sp1.bat"
+  config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installSQL2014.bat"
 
   # install VS 2015
   config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installVS15Pro.bat"

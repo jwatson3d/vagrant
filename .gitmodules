@@ -1,0 +1,18 @@
+[submodule "cent67php/provisioning/ansible/roles/ansible-role-apache"]
+	path = cent67php/provisioning/ansible/roles/ansible-role-apache
+	url = https://github.com/geerlingguy/ansible-role-apache
+[submodule "cent67php/provisioning/ansible/roles/ansible-role-mysql"]
+	path = cent67php/provisioning/ansible/roles/ansible-role-mysql
+	url = https://github.com/geerlingguy/ansible-role-mysql
+[submodule "cent67php/provisioning/ansible/roles/ansible-role-php"]
+	path = cent67php/provisioning/ansible/roles/ansible-role-php
+	url = https://github.com/geerlingguy/ansible-role-php
+[submodule "cent67php/provisioning/ansible/roles/ansible-role-phpmyadmin"]
+	path = cent67php/provisioning/ansible/roles/ansible-role-phpmyadmin
+	url = https://github.com/geerlingguy/ansible-role-phpmyadmin
+[submodule "cent67php/provisioning/ansible/roles/ansible-role-php-mysql"]
+	path = cent67php/provisioning/ansible/roles/ansible-role-php-mysql
+	url = https://github.com/geerlingguy/ansible-role-php-mysql
+[submodule "cent67php/provisioning/ansible/roles/ansible-role-php-pear"]
+	path = cent67php/provisioning/ansible/roles/ansible-role-php-pear
+	url = https://github.com/geerlingguy/ansible-role-php-pear

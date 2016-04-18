@@ -1,0 +1,36 @@
+---
+- hosts: all
+  sudo: true
+
+  roles:
+    - ansible-role-apache
+    - ansible-role-mysql
+    - ansible-role-php
+    - ansible-role-php-mysql
+    - ansible-role-php-pear
+
+  tasks:
+    - name: Copy phpinfo
+      copy:
+        src=/vagrant/deploy/phpinfo.php
+        dest=/var/www/html
+
+    - name: Install VIM
+      yum: name=vim state=present
+
+    - name: Install phpMyAdmin
+      yum: name=phpmyadmin state=present
+
+    - name: Copy phpMyAdmin
+      copy:
+        src=/vagrant/deploy/phpMyAdmin.conf
+        dest=/etc/httpd/conf.d
+      notify:
+        - restart apache
+
+    - name: Deploy DSP
+      yum: name=/vagrant/deploy/dsp-app-57.41.00.70-0.x86_64.rpm state=present
+
+  handlers:
+    - name: Restart Apache
+      service: name=httpd state=restarted

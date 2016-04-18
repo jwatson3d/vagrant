@@ -1,0 +1,53 @@
+Vagrant.require_version ">= 1.8.0"
+VAGRANTFILE_API_VERSION = "2"
+
+BASE_BOX = "boxcutter/centos67"
+BOX_NAME = "centos67php"
+HOST_NAME = "localhost"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = BASE_BOX
+  config.vm.hostname = HOST_NAME
+  config.vm.network "forwarded_port", guest: 80, host: 8000
+  config.vm.network "forwarded_port", guest: 3306, host: 8306
+
+  # customize VirtualBox defaults
+  config.vm.provider "virtualbox" do |vb|
+    vb.cpus = 2
+    vb.gui = false
+    vb.memory = 1024
+    vb.name = BOX_NAME
+    vb.customize ["modifyvm", :id, "--vram", "9"]
+  end
+
+  # bootstrap EPEL-6 and Ansible
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+    sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+    sudo yum -y upgrade ca-certificates --disablerepo=epel
+    sudo yum -y install openssl-devel
+    sudo yum -y install python-devel
+    sudo yum -y install python-pip
+    sudo yum -y install https://dl.fedoraproject.org/pub/epel/testing/6/x86_64/ansible-2.0.1.0-2.el6.noarch.rpm
+    sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    sudo yum -y install yum-utils
+    sudo yum-config-manager --enable remi-php55
+  SHELL
+
+  # Patch for https://github.com/mitchellh/vagrant/issues/6793
+  config.vm.provision "shell" do |s|
+    s.inline = '[[ ! -f $1 ]] || grep -F -q "$2" $1 || sed -i "/__main__/a \\    $2" $1'
+    s.args = ['/usr/bin/ansible-galaxy', "if sys.argv == ['/usr/bin/ansible-galaxy', '--help']: sys.argv.insert(1, 'info')"]
+  end 
+
+  # upload custom config to enable logging and task profiling
+  config.vm.provider "virtualbox" do |vb|
+    config.vm.provision "file", source: "deploy/ansible.cfg", destination: "~/.ansible.cfg"
+  end 
+
+  # provision the box with Ansible
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "/vagrant/provisioning/ansible/playbook.yml"
+    #ansible.verbose = "vvv"
+  end
+end
