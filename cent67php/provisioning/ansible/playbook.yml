@@ -28,9 +28,6 @@
       notify:
         - restart apache
 
-    - name: Deploy DSP
-      yum: name=/vagrant/deploy/dsp-app-57.41.00.70-0.x86_64.rpm state=present
-
   handlers:
     - name: Restart Apache
       service: name=httpd state=restarted
