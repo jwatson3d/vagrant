@@ -27,20 +27,9 @@ To run this script do the following:
 
   1. Clone this repo somewhere on your disk (`~/vagrant` *or* `%HOMEPATH%\vagrant`)
   1. Open a terminal or command prompt and navigate to the cloned repo (`cd ~/vagrant/cent67php` *or* `cd %HOMEPATH%\vagrant\cent67php`)
-  1. Run the following command:
-
-  ``` shell
-  vagrant up
-  ```
-
-  Optionally you may specify your virtualization provider if not using the defult (virtualbox):
-
-  ``` shell
-  vagrant up --provider vmware|fusion|hyperv
-  ```
-
-  The first time you run `vagrant up` the provisioning phase will occur and will likely take 5-10 minutes.
-  Subsequently `vagrant up` will simply start your already-provisioned machine.
+  1. Run `vagrant up`. Optionally you may specify your virtualization provider if not using the defult (virtualbox) `--provider vmware|fusion|hyperv`.
+    > The first time you run `vagrant up` the provisioning phase will occur and will likely take 5-10 minutes.
+    > Subsequently `vagrant up` will simply start your already-provisioned machine.
 
   1. Run `vagrant ssh` to connect to your newly spun up running instance.
   1. Run `vagrant halt` to issue an orderly shutdown.
@@ -49,12 +38,34 @@ To run this script do the following:
   1. Run `vagrant provision` to manually re-run the provisioning phase. This will likely re-install software and re-apply configurations depending on what exactly the provision steps are written to do. NOTE: Since Vagrant must be running for the provision command to work, you may also combine into a single command `vagrant up --provision`.
 
 
+
+### Configuration Settings
+
+The `vagrant.yml` file which sits alongside the standard `Vagrantfile` contains configurable variables that you can customize:
+
+| variable  | purpose |
+| --------  | ------- |
+| box_name  | The name of the machine assigned in Virtual box (shows in Virtual Box Manager). |
+| host_name | The hostname to assign to the guest OS (use `hostname` within the guest OS to see). |
+| v_console | 'true' if you wish to display the hypervisor console window (default is 'false'). |
+| v_cpu     | The number of virtual CPUs to assign to the guest machine. |
+| v_memory  | The amount of memory to assign to the guest machine. |
+
+
+### Mount Points
+
+| host | guest | notes  |
+| ---- | ----- | ------ |
+| "**.**" | `/vagrant` or `C:/vagrant` | Standard `/vagrant` mapping |
+
+> `vagrant.yml` contains the `iso_mount` variable used to set up the mount point.
+
 ### Port Forwarding
 
 | host | guest | notes  |
 | ---- | ----- | ------ |
-| 8000 |  80   | Apache, localhost:8000/phpinfo.php or localhost:8000/phpMyAdmin |
-| 8306 | 3306  | MySQL, use vagrant/vagrant for login |
+| 8000 |  80   | Apache (see links below) |
+| 8306 | 3306  | MySQL (use vagrant/vagrant for login) |
 
 >  1. [Apache 2 Test Page](http://localhost:8000/)
 >  1. [PHP Info Page](http://localhost:8000/phpinfo.php)

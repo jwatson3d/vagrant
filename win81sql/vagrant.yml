@@ -1,5 +1,15 @@
 ---
 box_name: "win81sql"
 host_name: "default"
+
 iso_mount: "D:/iso"
 #iso_mount: "/Volumes/USB/ISOs"
+
+v_console: "false"
+#v_console: "true"
+
+v_cpu: "default"
+#v_cpu: "2"
+
+v_memory: "default"
+#v_memory: "4096"

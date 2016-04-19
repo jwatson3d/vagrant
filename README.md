@@ -7,21 +7,34 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 1. You must have virtualization software installed on your machine. Currently only [Virtual Box](https://www.vagrantup.com/docs/virtualbox/) providers have been coded and tested but [VMware](https://www.vagrantup.com/docs/vmware/) Workstation and Fusion, [Parallels](http://parallels.github.io/vagrant-parallels/docs/), and [Hyper-V](https://www.vagrantup.com/docs/vmware/) providers are also possible (pull requests appreciated if you update & test).
 1. You must have [Vagrant](https://www.vagrantup.com/downloads.html) installed.
 1. You might need [Cygwin](https://www.cygwin.com/) or [git for Windows](https://git-for-windows.github.io/) installed - necessary as Vagrant uses bash for some of its work.
-1. Provisioning scripts expect a collection of installer images that are unpacked and mounted in a common location such as on a shared network folder or an attached external hard drive (USB, Thunderbolt, etc.).
+
+> NOTE: Typically, a collection of installer images are unpacked and mounted in a common location such as on a shared network folder or an attached external hard drive (USB, Thunderbolt, etc.).
 
 
 # Quick Steps
 
 1. Clone this repo to a local folder on your computer.
-1. Open a command prompt and navigate to the subfolder of the machine you wish to create.
-1. Run `vagrant up`. Optionally you may specify your virtualization provider if not using the defult (virtualbox) `--provider vmware|fusion|hyperv`.
-    * The first time you run `vagrant up` the provisioning phase will occur and will likely take a few minutes.
-    * Subsequently `vagrant up` will simply start your already-provisioned machine.
+1. Open a terminal or command prompt and navigate to the subfolder of the machine you wish to create.
+1. Run the following command:
+
+  ``` shell
+  vagrant up
+  ```
+
+  Optionally you may specify your virtualization provider if not using the default (virtualbox):
+
+  ``` shell
+  vagrant up --provider vmware|fusion|hyperv
+  ```
+
+  The first time you run `vagrant up` the provisioning phase will occur and will likely take a few minutes unless the guest OS is Windows then go for a walk and buy a cup of coffee - it could be an hour or two!
+  Subsequently `vagrant up` will simply start your already-provisioned machine.
+
 1. Connect to your newly spun up running instance.
     * Run `vagrant ssh` to connect to a Linux guest OS.
     * Run `vagrant rdp` to connect to a Windows guest OS. *This also works on Mac if you have [Microsoft Remote Desktop](https://itunes.apple.com/us/app/microsoft-remote-desktop/id715768417?mt=12) installed on OS X.*
 1. Run `vagrant halt` to issue an orderly shutdown.
-1. Run `vagrant suspend` to save the machine's state to disk (e.g. hibernate) and power off (`vagrant up` to restart/restore state).
+1. Run `vagrant suspend` to save the machine's state to disk (e.g. hibernate) and power off (run `vagrant up` again to restart/restore state).
 1. Run `vagrant destroy` to permanently destroy the image.
 1. Run `vagrant provision` to manually re-run the provisioning phase. This will likely re-install software and re-apply configurations depending on what exactly the provision steps are written to do. NOTE: Since Vagrant must be running for the provision command to work, you may also combine into a single command `vagrant up --provision`.
 
@@ -31,9 +44,9 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 | script | notes |
 | ----   | ----- |
 | [cent67php](cent67php/README.md) | CentOS 6.7 PHP development server |
-| [win81dev](win81dev/README.md) | Windows 8.1 Ent. VS 2015 & SQL 2014 |
-| [win81sql](win81sql/README.md) | Windows 8.1 Ent. SQL 2014 Developer Edition |
-| [win10dev](win10dev/README.md) | Windows 10 Ent. (1511) VS 2015 & SQL 2014 |
+| [win81dev](win81dev/README.md)   | Windows 8.1 Ent. VS 2015 & SQL 2014 |
+| [win81sql](win81sql/README.md)   | Windows 8.1 Ent. SQL 2014 Developer Edition |
+| [win10dev](win10dev/README.md)   | Windows 10 Ent. (1511) VS 2015 & SQL 2014 |
 
 
 # Notes

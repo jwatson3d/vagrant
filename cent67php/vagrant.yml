@@ -1,5 +1,5 @@
 ---
-box_name: "win10dev"
+box_name: "centos67php"
 host_name: "default"
 
 iso_mount: "D:/iso"
@@ -12,4 +12,4 @@ v_cpu: "default"
 #v_cpu: "2"
 
 v_memory: "default"
-#v_memory: "1536"
+#v_memory: "4096"

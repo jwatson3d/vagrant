@@ -5,10 +5,14 @@ overrides = YAML.load_file 'vagrant.yml'
 BOX_NAME = overrides['box_name']
 HOST_NAME = overrides['host_name']
 ISO_MOUNT = overrides['iso_mount']
+V_CONSOLE = overrides['v_console']
+V_CPU = overrides['v_cpu']
+V_MEMORY = overrides['v_memory']
 
 Vagrant.require_version ">= 1.8.0"
 VAGRANTFILE_API_VERSION = "2"
 
+# base box NOT exposed since changing may cause unforseen problems
 BASE_BOX = "win81x64ent"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -29,14 +33,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # customize VirtualBox defaults
   config.vm.provider "virtualbox" do |vb|
-    # use 2 v-cpus
+    # assign v-cpus
+    if V_CPU != 'default'
+      vb.cpus = V_CPU
+    else
     vb.cpus = 2
+    end
 
-    # true = display hypervisor console window, false = don't display
-    vb.gui = true
+    # true means display hypervisor console window, false means don't display
+    vb.gui = V_CONSOLE
 
-    # OS + Visual Studio + SQL is a memory hog!
+    # guest OS memory allocation (MB)
+    if V_MEMORY != 'default'
+      vb.memory = V_MEMORY
+    else
     vb.memory = 3096
+    end
 
     # rename the box to a friendly name
     if BOX_NAME != 'default'
