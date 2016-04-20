@@ -1,13 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 require 'yaml'
-overrides = YAML.load_file 'vagrant.yml'
-BOX_NAME = overrides['box_name']
-HOST_NAME = overrides['host_name']
-ISO_MOUNT = overrides['iso_mount']
-V_CONSOLE = overrides['v_console']
-V_CPU = overrides['v_cpu']
-V_MEMORY = overrides['v_memory']
+settings = YAML.load_file 'vagrant.yml'
+
+BOX_NAME = settings['box_name']
+HOST_NAME = settings['host_name']
+ISO_MOUNT = settings['iso_mount']
+V_CONSOLE = settings['v_console']
+V_CPU = settings['v_cpu']
+V_MEMORY = settings['v_memory']
 
 Vagrant.require_version ">= 1.8.0"
 VAGRANTFILE_API_VERSION = "2"
@@ -18,7 +19,6 @@ BASE_BOX = "win81x64ent"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = BASE_BOX
   config.vm.hostname = HOST_NAME
-
   config.vm.guest = :windows
   #config.vm.communicator = "winrm"
   config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true

@@ -1,13 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 require 'yaml'
-overrides = YAML.load_file 'vagrant.yml'
-BOX_NAME = overrides['box_name']
-HOST_NAME = overrides['host_name']
-ISO_MOUNT = overrides['iso_mount']
-V_CONSOLE = overrides['v_console']
-V_CPU = overrides['v_cpu']
-V_MEMORY = overrides['v_memory']
+settings = YAML.load_file 'vagrant.yml'
+
+BOX_NAME = settings['box_name']
+HOST_NAME = settings['host_name']
+ISO_MOUNT = settings['iso_mount']
+V_CONSOLE = settings['v_console']
+V_CPU = settings['v_cpu']
+V_MEMORY = settings['v_memory']
 
 Vagrant.require_version ">= 1.8.0"
 VAGRANTFILE_API_VERSION = "2"
