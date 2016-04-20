@@ -35,21 +35,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # customize VirtualBox defaults
   config.vm.provider "virtualbox" do |vb|
     # assign v-cpus
-    if V_CPU != 'default'
-      vb.cpus = V_CPU
-    else
-      vb.cpus = 2
-    end
+    vb.cpus = V_CPU
 
     # true means display hypervisor console window, false means don't display
     vb.gui = V_CONSOLE
 
     # guest OS memory allocation (MB)
-    if V_MEMORY != 'default'
-      vb.memory = V_MEMORY
-    else
-      vb.memory = 3096
-    end
+    vb.memory = V_MEMORY
 
     # rename the box to a friendly name
     if BOX_NAME != 'default'

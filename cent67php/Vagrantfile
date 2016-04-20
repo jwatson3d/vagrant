@@ -25,21 +25,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # customize VirtualBox defaults
   config.vm.provider "virtualbox" do |vb|
     # assign v-cpus
-    if V_CPU != 'default'
-      vb.cpus = V_CPU
-    else
-      vb.cpus = 2
-    end
+    vb.cpus = V_CPU
 
     # true means display hypervisor console window, false means don't display
     vb.gui = V_CONSOLE
 
     # guest OS memory allocation (MB)
-    if V_MEMORY != 'default'
-      vb.memory = V_MEMORY
-    else
-      vb.memory = 1024
-    end
+    vb.memory = V_MEMORY
 
     # rename the box to a friendly name
     if BOX_NAME != 'default'
@@ -53,14 +45,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # bootstrap EPEL-6 and Ansible (also requires bootstrapping addtn'l python libraries)
   config.vm.provision "shell", inline: <<-SHELL
-    sudo yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+    sudo yum -y --nogpgcheck localinstall /vagrant/deploy/epel-release-6-8.noarch.rpm
     sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
     sudo yum -y upgrade ca-certificates --disablerepo=epel
     sudo yum -y install openssl-devel
     sudo yum -y install python-devel
     sudo yum -y install python-pip
-    sudo yum -y install https://dl.fedoraproject.org/pub/epel/testing/6/x86_64/ansible-2.0.1.0-2.el6.noarch.rpm
-    sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    sudo yum -y --nogpgcheck localinstall /vagrant/deploy/ansible-2.0.1.0-2.el6.noarch.rpm
+    sudo yum -y --nogpgcheck localinstall /vagrant/deploy/remi-release-6.rpm
     sudo yum -y install yum-utils
     sudo yum-config-manager --enable remi-php55
   SHELL
@@ -82,6 +74,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # provision the box with Ansible
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "/vagrant/provisioning/ansible/playbook.yml"
+
+    # extra_vars causes 'ERROR: Expecting property name: line 1 column 1 (char 1)'
+    # command line becomes --extra-vars={"catalina_base":"/srv/ues"} 
+    # command line should be --extra-vars='{"catalina_base":"/srv/ues"}' (with single quotes)
+    #ansible.extra_vars = {
+    #  catalina_base: CATALINA_BASE
+    #}
+
     #ansible.verbose = "vvv"
   end
 end

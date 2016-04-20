@@ -18,8 +18,10 @@ BASE_BOX = "win10x64ent"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = BASE_BOX
   config.vm.hostname = HOST_NAME
+
   config.vm.guest = :windows
   #config.vm.communicator = "winrm"
+
   config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
   config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
   #config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
@@ -34,21 +36,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # customize VirtualBox defaults
   config.vm.provider "virtualbox" do |vb|
     # assign v-cpus
-    if V_CPU != 'default'
-      vb.cpus = V_CPU
-    else
-      vb.cpus = 2
-    end
+    vb.cpus = V_CPU
 
     # true means display hypervisor console window, false means don't display
     vb.gui = V_CONSOLE
 
     # guest OS memory allocation (MB)
-    if V_MEMORY != 'default'
-      vb.memory = V_MEMORY
-    else
-      vb.memory = 3096
-    end
+    vb.memory = V_MEMORY
 
     # rename the box to a friendly name
     if BOX_NAME != 'default'
