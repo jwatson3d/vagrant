@@ -46,14 +46,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # bootstrap EPEL-6 and Ansible (also requires bootstrapping addtn'l python libraries)
   config.vm.provision "shell", inline: <<-SHELL
-    sudo yum -y --nogpgcheck localinstall /vagrant/deploy/epel-release-6-8.noarch.rpm
+    sudo yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
     sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
     sudo yum -y upgrade ca-certificates --disablerepo=epel
     sudo yum -y install openssl-devel
     sudo yum -y install python-devel
     sudo yum -y install python-pip
-    sudo yum -y --nogpgcheck localinstall /vagrant/deploy/ansible-2.0.1.0-2.el6.noarch.rpm
-    sudo yum -y --nogpgcheck localinstall /vagrant/deploy/remi-release-6.rpm
+    sudo yum -y install https://dl.fedoraproject.org/pub/epel/testing/6/x86_64/ansible-2.0.1.0-2.el6.noarch.rpm
+    sudo yum -y install http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
     sudo yum -y install yum-utils
     sudo yum-config-manager --enable remi-php55
   SHELL
