@@ -1,0 +1,73 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'yaml'
+settings = YAML.load_file 'vagrant.yml'
+
+BOX_NAME = settings['box_name']
+HOST_NAME = settings['host_name']
+ISO_MOUNT = settings['iso_mount']
+V_CONSOLE = settings['v_console']
+V_CPU = settings['v_cpu']
+V_MEMORY = settings['v_memory']
+
+Vagrant.require_version ">= 1.8.0"
+VAGRANTFILE_API_VERSION = "2"
+
+# base box NOT exposed since changing may cause unforseen problems
+BASE_BOX = "win81x64ent"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = BASE_BOX
+  config.vm.hostname = HOST_NAME
+  config.vm.guest = :windows
+  config.vm.communicator = "winrm"
+  config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh", auto_correct: true
+  config.vm.network "forwarded_port", guest: 3389, host: 3389, id: "rdp", auto_correct: true
+  config.vm.network "forwarded_port", guest: 5985, host: 5985, id: "winrm", auto_correct: true
+  config.vm.synced_folder "#{ISO_MOUNT}", "/iso"
+
+  config.windows.halt_timeout = 15
+
+  config.winrm.username = "vagrant"
+  config.winrm.password = "vagrant"
+
+
+  # customize VirtualBox defaults
+  config.vm.provider "virtualbox" do |vb|
+    # assign v-cpus
+    vb.cpus = V_CPU
+
+    # true means display hypervisor console window, false means don't display
+    vb.gui = V_CONSOLE
+
+    # guest OS memory allocation (MB)
+    vb.memory = V_MEMORY
+
+    # rename the box to a friendly name
+    if BOX_NAME != 'default'
+      vb.name = BOX_NAME
+    end
+
+    # increase video ram to support graphical apps
+    vb.customize ["modifyvm", :id, "--vram", "128"]
+  end
+
+
+  # provision Chocolatey and tools
+  #config.vm.provision :shell, path: "provisioning/shell/chocolatey.ps1"
+  #config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installTools.bat"
+
+  # install Babun (Cygwin) shell with Python, Git, etc. to easily bootstrap Ansible
+  #config.vm.provision :shell, inline: "C:/iso/babun-1.2.0/install.bat"
+  #config.vm.provision :shell, inline: "C:/Users/vagrant/.babun/cygwin/bin/bash C:/vagrant/provisioning/shell/bootstrap_ansible_windows.sh"
+
+  # provision the box with Ansible
+  #config.vm.provision "ansible_local" do |ansible|
+  #  ansible.playbook = "/vagrant/provisioning/ansible/playbook.yml"
+  #  ansible.verbose = "vvv"
+  #end
+
+  # cleanup
+  #config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/enableFirewall.bat"
+
+end
