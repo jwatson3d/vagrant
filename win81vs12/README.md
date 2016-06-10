@@ -7,7 +7,7 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 1. You must have virtualization software installed on your machine. Currently only [Virtual Box](https://www.vagrantup.com/docs/virtualbox/) providers have been coded and tested but [VMware](https://www.vagrantup.com/docs/vmware/) Workstation and Fusion, [Parallels](http://parallels.github.io/vagrant-parallels/docs/), and [Hyper-V](https://www.vagrantup.com/docs/vmware/) providers are also possible (pull requests appreciated if you update & test).
 1. You must have [Vagrant](https://www.vagrantup.com/downloads.html) installed.
 1. You might need [Cygwin](https://www.cygwin.com/) or [git for Windows](https://git-for-windows.github.io/) installed - necessary as Vagrant uses bash for some of its work.
-1. Provisioning scripts expect SQL 2014 and VS 2015 unpacked ISO images to be available. These could be converted to variables or otherwise improved upon:
+1. Provisioning scripts expect VS 2012 unpacked ISO images to be available. These could be converted to variables or otherwise improved upon:
     1. `provisioning\shell\installVS12Pro.bat` refers to *vs2012_pro* for a folder name - either name your unpacked folder this or change the script
 
 > NOTE: Typically, a collection of installer images are unpacked and mounted in a common location such as on a shared network folder or an attached external hard drive (USB, Thunderbolt, etc.).

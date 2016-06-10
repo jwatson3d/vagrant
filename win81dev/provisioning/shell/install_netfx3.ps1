@@ -1,1 +1,1 @@
-DISM  /Online  /Enable-Feature  /FeatureName:NetFx3  /All  #/LimitAccess  /Source:C:\Windows\temp\sources\sxs
+DISM  /Online  /Enable-Feature  /FeatureName:NetFx3  /All  /NoRestart  #/LimitAccess  /Source:C:\Windows\temp\sources\sxs

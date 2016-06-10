@@ -54,8 +54,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
   # provision Chocolatey and tools
-  #config.vm.provision :shell, path: "provisioning/shell/chocolatey.ps1"
-  #config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installTools.bat"
+  config.vm.provision :shell, path: "provisioning/shell/chocolatey.ps1"
+  config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installTools.bat"
+  config.vm.provision :shell, inline: "C:/vagrant/provisioning/shell/installVS12Pro.bat"
 
   # install Babun (Cygwin) shell with Python, Git, etc. to easily bootstrap Ansible
   #config.vm.provision :shell, inline: "C:/iso/babun-1.2.0/install.bat"

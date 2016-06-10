@@ -46,6 +46,7 @@ This repo contains [Vagrant](https://www.vagrantup.com/) scripts for easily spin
 | [cent67php](cent67php/README.md) | CentOS 6.7 PHP development server |
 | [win81dev](win81dev/README.md)   | Windows 8.1 Ent. VS 2015 & SQL 2014 |
 | [win81sql](win81sql/README.md)   | Windows 8.1 Ent. SQL 2014 Developer Edition |
+| [win81vs12](win81vs12/README.md) | Windows 8.1 Ent. VS 2012 |
 | [win10dev](win10dev/README.md)   | Windows 10 Ent. (1511) VS 2015 & SQL 2014 |
 
 
@@ -69,3 +70,7 @@ The philosophy here is to use Vagrant to quickly bootstrap a machine then do all
 1. Vagrant and Virtual Box on Windows does not completely rename the virtual machine to the name specified in the `Vagrantfile`.
    1. The virtual machine will fail to start and you'll be left with multiple lines of red error messages in the console window.
    1. Follow the one-time instructions in the [Windows](Windows.md) notes to manually complete the rename process and resume.
+1. Windows networking & firewall sometimes will get in the way. When the virtual machine first boots it might detect a "new/different" network that it has not seen before. When this happens the default behavior is to assume the network is a "Public" one and to bring up the firewall security to maximum settings. This has the effect of causing WinRM (Windows Remote Management) to be blocked and since vagrant uses WinRM to communicate with the virtual machine it will "hang" until it eventually times out.
+    1. Edit `vagrant.yml` and specfiy `v_console: true` then kill and restart the vagrant process.
+    1. Log into the virtual machine when the console is available and change the `Network Location` from "Public" to either "Work" or "Home" and save it [How-To](http://www.eightforums.com/tutorials/9837-network-location-set-private-public-windows-8-a.html). You should begin seeing network activity on the virtual machine's indicators as vagrant is now able to communicate.
+    1. After provisioning you can switch back to `v_console: false` and use `vagrant rdp` to get a full remote session to work in.
